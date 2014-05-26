@@ -1,3 +1,4 @@
+using System;
 using NUnit.Framework;
 
 namespace TheKoans
@@ -41,21 +42,21 @@ namespace TheKoans
 		public void GenericTypeIsACompositionOfTypes ()
 		{
 			var helloCat = new SayHello<Cat> ();
-			Assert.AreEqual (typeof(FILL_ME_IN), helloCat.GetType ());
+			Assert.AreEqual (typeof(SayHello<Cat>), helloCat.GetType ());
 		}
 
 		[Test]
 		public void GenericTypeCanGetTheGenericArgumentName ()
 		{
 			var helloCat = new SayHello<Cat> ();
-			Assert.AreEqual (FILL_ME_IN, helloCat.HelloMessage ());
+			Assert.AreEqual ("Hello Cat", helloCat.HelloMessage ());
 		}
 
 		[Test]
 		public void GenericTypeCanBeUsedWithAnyTypeEvenPrimitives ()
 		{
 			var helloInt = new SayHello<int> ();
-			Assert.AreEqual (FILL_ME_IN, helloInt.HelloMessage ());
+			Assert.AreEqual ("Hello Int32", helloInt.HelloMessage ());
 		}
 
 		[Test]
@@ -63,8 +64,8 @@ namespace TheKoans
 		{
 			var helloCat = new SayHello<Cat> ();
 
-			Assert.AreEqual (FILL_ME_IN, helloCat.GetType ().IsGenericType);
-			Assert.AreEqual (typeof(FILL_ME_IN), typeof(SayHello<>).IsGenericTypeDefinition);
+			Assert.AreEqual (true, helloCat.GetType ().IsGenericType);
+			Assert.AreEqual (true, typeof(SayHello<>).IsGenericTypeDefinition);
 		}
 
 		[Test]
@@ -73,8 +74,8 @@ namespace TheKoans
 			var helloCat = new SayHello<Cat> ();
 			var expectedType = typeof(SayHello<>);
 
-			Assert.AreEqual (FILL_ME_IN, helloCat.GetType ().GetGenericTypeDefinition ());
-			Assert.AreEqual (FILL_ME_IN, typeof(SayHello<>).IsGenericTypeDefinition);
+			Assert.AreEqual (typeof(SayHello<>), helloCat.GetType ().GetGenericTypeDefinition ());
+			Assert.AreEqual (true ,  typeof(SayHello<>).IsGenericTypeDefinition);
 		}
 
 		[Test]
@@ -85,7 +86,7 @@ namespace TheKoans
 
 			var genericTypeFromDogToCompare = helloDog.GetType ().GetGenericTypeDefinition ();
 
-			Assert.AreEqual (FILL_ME_IN, helloCat.GetType ().GetGenericTypeDefinition ());
+			Assert.AreEqual (typeof(SayHello<>), helloCat.GetType ().GetGenericTypeDefinition ());
 		}
 
 		[Test]
@@ -105,7 +106,7 @@ namespace TheKoans
 			//- you can add multiple conditions:
 			//     public class MyGeneric<T> where T : Animal, class
 
-			Assert.AreEqual (true, FILL_ME_IN);
+			Assert.AreEqual (true, helloInt.GetType().IsClass);
 		}
 
 		public interface IHasName
@@ -141,8 +142,8 @@ namespace TheKoans
 			var paul = new AnimalOwner<Person,Cat> (new Person{ Name = "Paul" });
 			var expected = new[]{ typeof(Person), typeof(Cat) };
 
-			Assert.AreEqual (FILL_ME_IN, paul.GetType ().GetGenericArguments ().Length);
-			Assert.AreEqual (FILL_ME_IN, paul.GetType ().GetGenericArguments ());
+			Assert.AreEqual (2, paul.GetType ().GetGenericArguments ().Length);
+			Assert.AreEqual (new Type[]{typeof(Person),typeof(Cat)}, paul.GetType ().GetGenericArguments ());
 		}
 
 		[Test]
@@ -152,7 +153,7 @@ namespace TheKoans
 
 			//In the generic, in describe method, you can use owner.Name property
 			//because we know that owner MUST implement IHasName interface that has a Name property 
-			Assert.AreEqual (FILL_ME_IN, paul.Describe ());
+			Assert.AreEqual ("Paul loves Paul pets", paul.Describe ());
 		}
 	}
 }
